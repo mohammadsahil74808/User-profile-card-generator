@@ -11,8 +11,15 @@ app.use(cors());
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Serve frontend static assets from public/
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve frontend static assets from public/ at root AND at /public/
+const publicDir = path.join(__dirname, 'public');
+app.use(express.static(publicDir));
+app.use('/public', express.static(publicDir));
+
+// Redirect /public or /public/index.html to root /
+app.get(['/public', '/public/', '/public/index.html'], (req, res) => {
+  res.redirect(301, '/');
+});
 
 /**
  * Health check endpoint to test connection status
@@ -66,9 +73,13 @@ app.use((err, req, res, next) => {
   next(err);
 });
 
-// Fallback route for SPA / 404
+// Fallback route for SPA / 404 (only for HTML navigation routes, not static assets)
 app.use((req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  // If the request points to a file extension (e.g. .css, .js, .svg), return 404 instead of index.html
+  if (path.extname(req.path)) {
+    return res.status(404).type('text/plain').send('File Not Found');
+  }
+  res.sendFile(path.join(publicDir, 'index.html'));
 });
 
 // Only listen if not imported by test runner
