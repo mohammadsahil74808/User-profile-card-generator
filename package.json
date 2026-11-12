@@ -1,0 +1,29 @@
+{
+  "name": "user-profile-card-generator",
+  "version": "1.0.0",
+  "description": "Form-based User Profile Card Generator with Node.js Express backend and GitHub Pages static support",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js",
+    "deploy": "gh-pages -d public"
+  },
+  "keywords": [
+    "profile-card",
+    "express",
+    "post-request",
+    "github-pages",
+    "vanilla-js"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
