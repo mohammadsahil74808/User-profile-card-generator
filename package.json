@@ -1,8 +1,13 @@
 {
   "name": "user-profile-card-generator",
   "version": "1.0.0",
-  "description": "Form-based User Profile Card Generator with Node.js Express backend and GitHub Pages static support",
+  "description": "Form-based User Profile Card Generator with Node.js Express backend, 3D tilt physics, and dual GitHub Pages support",
   "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mohammadsahil74808/User-profile-card-generator.git"
+  },
+  "homepage": "https://mohammadsahil74808.github.io/User-profile-card-generator/",
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
@@ -16,7 +21,7 @@
     "github-pages",
     "vanilla-js"
   ],
-  "author": "",
+  "author": "mohammadsahil74808",
   "license": "MIT",
   "type": "commonjs",
   "dependencies": {
