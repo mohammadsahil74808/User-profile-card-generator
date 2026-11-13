@@ -176,3 +176,4 @@ curl -X POST "http://localhost:3000/api/profile" \
 
 ## 📄 License
 MIT License. Created for full-stack learning and production card generation.
+

@@ -3,41 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Profile Card Generator | Full-Stack & GitHub Pages</title>
-  <meta name="description" content="Generate customizable user profile cards using a robust POST request pipeline. Built with Node.js Express backend and dual GitHub Pages client support." />
+  <title>Profile Studio — Handcrafted Card Generator &amp; POST Pipeline</title>
+  <meta name="description" content="Generate bespoke, high-craft developer & designer profile cards powered by a robust HTTP POST backend engine and GitHub Pages dual-mode support." />
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/style.css" />
 </head>
-<body>
-  <!-- Top Navigation / Application Header -->
-  <header class="app-header">
-    <div class="header-container">
-      <div class="brand-group">
-        <div class="brand-logo">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="16" rx="3" />
-            <circle cx="9" cy="10" r="2.5" />
-            <path d="M15 8h2" />
-            <path d="M15 12h2" />
-            <path d="M7 16h10" />
-          </svg>
+<body class="theme-obsidian-app">
+  <!-- Application Navigation Header -->
+  <header class="studio-nav">
+    <div class="nav-inner">
+      <div class="brand-cluster">
+        <div class="brand-monogram">
+          <span>P</span>
+          <div class="brand-monogram-glow"></div>
         </div>
-        <div>
-          <h1 class="brand-title">Profile Studio</h1>
-          <p class="brand-tagline">Form-to-Backend POST Pipeline &amp; Card Generator</p>
+        <div class="brand-text">
+          <div class="brand-title-row">
+            <span class="brand-name">Profile Studio</span>
+            <span class="badge-version">POST Pipeline</span>
+          </div>
+          <span class="brand-sub">Craft-driven card generator &amp; API workbench</span>
         </div>
       </div>
 
-      <!-- Environment & Backend Status Indicator -->
-      <div class="status-bar">
-        <div class="status-indicator" id="backendStatusIndicator" title="Current backend connection status">
-          <span class="status-dot dot-detecting" id="backendStatusBadge"></span>
-          <span class="status-text" id="backendStatusLabel">Detecting backend...</span>
+      <!-- Engine Status & Switcher -->
+      <div class="nav-controls">
+        <div class="engine-status-pill" id="backendStatusIndicator" title="Backend connection status">
+          <span class="status-pulse-dot dot-detecting" id="backendStatusBadge"></span>
+          <span class="engine-label" id="backendStatusLabel">Detecting backend...</span>
         </div>
-        <div class="mode-selector-wrap">
-          <label for="modeSelect" class="sr-only">Select Engine Mode</label>
-          <select id="modeSelect" class="mode-select" title="Toggle between Live Express Backend and GitHub Pages Worker Engine">
-            <option value="express">Live Express API</option>
+        
+        <div class="mode-toggle-wrap">
+          <label for="modeSelect" class="sr-only">Select API Mode</label>
+          <select id="modeSelect" class="mode-select-input" title="Switch between Live Node.js Express server and In-browser Worker">
+            <option value="express">Live Node.js API</option>
             <option value="worker">GitHub Pages Worker</option>
           </select>
         </div>
@@ -45,295 +47,368 @@
     </div>
   </header>
 
-  <!-- Main Application Workspace -->
-  <main class="main-content">
-    <div class="workbench-grid">
+  <!-- Main Atelier Workspace -->
+  <main class="studio-workspace">
+    <div class="workspace-layout">
       
-      <!-- LEFT COLUMN: Input Studio Form -->
-      <section class="studio-card form-panel" aria-labelledby="formHeading">
-        <div class="panel-header">
-          <div>
-            <span class="panel-eyebrow">Input Studio</span>
-            <h2 id="formHeading" class="panel-title">Profile Information</h2>
-          </div>
-          <button type="button" id="resetBtn" class="btn-ghost" title="Reset all input fields">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-            <span>Reset</span>
-          </button>
-        </div>
-
-        <!-- Quick Fill Presets Bar -->
-        <div class="presets-shelf">
-          <span class="preset-label">⚡ Quick Presets:</span>
-          <div class="preset-buttons-group">
-            <button type="button" class="preset-btn" data-preset="0">Robotics Lead</button>
-            <button type="button" class="preset-btn" data-preset="1">Systems Designer</button>
-            <button type="button" class="preset-btn" data-preset="2">AI Scientist</button>
-          </div>
-        </div>
-
-        <!-- The Main Submission Form -->
-        <form id="profileForm" novalidate>
+      <!-- LEFT COLUMN: Creator Controls -->
+      <section class="workbench-column" aria-label="Profile Generator Controls">
+        <div class="column-card studio-form-card">
           
-          <!-- Full Name -->
-          <div class="form-group">
-            <div class="label-row">
-              <label for="name" class="form-label">Full Name <span class="required-star">*</span></label>
-              <span class="helper-note">Min 2, Max 50 chars</span>
+          <!-- Presets Ribbon -->
+          <div class="presets-section">
+            <div class="section-label-row">
+              <span class="studio-eyebrow">Curated Personas</span>
+              <button type="button" id="resetBtn" class="action-link-btn" title="Reset all form fields">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                <span>Clear</span>
+              </button>
             </div>
-            <input 
-              type="text" 
-              id="name" 
-              name="name" 
-              class="form-input" 
-              placeholder="e.g. Sarah Connor" 
-              required 
-              minlength="2" 
-              maxlength="50"
-              autocomplete="name"
-            />
-            <div id="nameError" class="field-error" role="alert"></div>
+            
+            <div class="persona-chips-shelf" role="toolbar" aria-label="Quick Profile Presets">
+              <button type="button" class="persona-btn active" data-preset="0">
+                <span class="persona-avatar-mini" style="background-image:url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&q=80');"></span>
+                <span class="persona-name">Elena Rostova</span>
+                <span class="persona-role">Design Tech</span>
+              </button>
+              
+              <button type="button" class="persona-btn" data-preset="1">
+                <span class="persona-avatar-mini" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80');"></span>
+                <span class="persona-name">Marcus Chen</span>
+                <span class="persona-role">Systems Eng</span>
+              </button>
+              
+              <button type="button" class="persona-btn" data-preset="2">
+                <span class="persona-avatar-mini" style="background-image:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&q=80');"></span>
+                <span class="persona-name">Amara Okafor</span>
+                <span class="persona-role">Creative Dir</span>
+              </button>
+
+              <button type="button" class="persona-btn" data-preset="3">
+                <span class="persona-avatar-mini" style="background-image:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80');"></span>
+                <span class="persona-name">Julian Vance</span>
+                <span class="persona-role">Essayist</span>
+              </button>
+            </div>
           </div>
 
-          <!-- Professional Title / Role -->
-          <div class="form-group">
-            <div class="label-row">
-              <label for="title" class="form-label">Role or Headline</label>
-              <span class="helper-note">Optional (Default: Member)</span>
-            </div>
-            <input 
-              type="text" 
-              id="title" 
-              name="title" 
-              class="form-input" 
-              placeholder="e.g. Lead Cybernetics Engineer" 
-              maxlength="60"
-            />
-            <div id="titleError" class="field-error" role="alert"></div>
-          </div>
-
-          <!-- Bio Description -->
-          <div class="form-group">
-            <div class="label-row">
-              <label for="bio" class="form-label">Biography <span class="required-star">*</span></label>
-              <span id="bioCharCount" class="helper-note char-counter">0/350</span>
-            </div>
-            <textarea 
-              id="bio" 
-              name="bio" 
-              class="form-textarea" 
-              rows="3" 
-              placeholder="Share your focus areas, interests, or background..." 
-              required 
-              minlength="5" 
-              maxlength="350"
-            ></textarea>
-            <div id="bioError" class="field-error" role="alert"></div>
-          </div>
-
-          <!-- Avatar Image URL -->
-          <div class="form-group">
-            <div class="label-row">
-              <label for="imageUrl" class="form-label">Avatar Image URL</label>
-              <span class="helper-note">HTTP/HTTPS or leave empty for initials</span>
-            </div>
-            <div class="input-with-preview">
-              <div id="imgPreviewContainer" class="avatar-preview-box" aria-hidden="true">
-                <div class="avatar-placeholder">Initials</div>
+          <!-- The Core Form -->
+          <form id="profileForm" novalidate autocomplete="off">
+            
+            <!-- SECTION 1: Identity & Role -->
+            <div class="form-block">
+              <div class="block-title">
+                <span class="block-num">01</span>
+                <h3>Identity &amp; Title</h3>
               </div>
-              <input 
-                type="url" 
-                id="imageUrl" 
-                name="imageUrl" 
-                class="form-input" 
-                placeholder="https://images.unsplash.com/photo-..." 
-              />
-            </div>
-            <div id="imageUrlError" class="field-error" role="alert"></div>
-          </div>
 
-          <!-- Card Theme Selector -->
-          <div class="form-group">
-            <div class="label-row">
-              <span class="form-label">Accent Theme Palette</span>
-              <span class="helper-note">Card aesthetic</span>
-            </div>
-            <div class="theme-swatches-grid" role="radiogroup" aria-label="Card Theme Palette">
-              <label class="theme-swatch">
-                <input type="radio" name="theme" value="slate" checked />
-                <span class="swatch-tile swatch-slate">
-                  <span class="swatch-color" style="background:#38bdf8;"></span>
-                  <span class="swatch-name">Slate</span>
-                </span>
-              </label>
+              <div class="inputs-grid-2">
+                <div class="field-wrap">
+                  <div class="field-label-line">
+                    <label for="name" class="field-label">Full Name <span class="req">*</span></label>
+                  </div>
+                  <input type="text" id="name" name="name" class="studio-input" placeholder="Elena Rostova" required minlength="2" maxlength="50" />
+                  <div id="nameError" class="field-error-msg" role="alert"></div>
+                </div>
 
-              <label class="theme-swatch">
-                <input type="radio" name="theme" value="emerald" />
-                <span class="swatch-tile swatch-emerald">
-                  <span class="swatch-color" style="background:#34d399;"></span>
-                  <span class="swatch-name">Emerald</span>
-                </span>
-              </label>
-
-              <label class="theme-swatch">
-                <input type="radio" name="theme" value="indigo" />
-                <span class="swatch-tile swatch-indigo">
-                  <span class="swatch-color" style="background:#818cf8;"></span>
-                  <span class="swatch-name">Indigo</span>
-                </span>
-              </label>
-
-              <label class="theme-swatch">
-                <input type="radio" name="theme" value="amber" />
-                <span class="swatch-tile swatch-amber">
-                  <span class="swatch-color" style="background:#fbbf24;"></span>
-                  <span class="swatch-name">Amber</span>
-                </span>
-              </label>
-
-              <label class="theme-swatch">
-                <input type="radio" name="theme" value="rose" />
-                <span class="swatch-tile swatch-rose">
-                  <span class="swatch-color" style="background:#fb7185;"></span>
-                  <span class="swatch-name">Rose</span>
-                </span>
-              </label>
-
-              <label class="theme-swatch">
-                <input type="radio" name="theme" value="cyan" />
-                <span class="swatch-tile swatch-cyan">
-                  <span class="swatch-color" style="background:#22d3ee;"></span>
-                  <span class="swatch-name">Cyan</span>
-                </span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Collapsible Social Links -->
-          <details class="social-accordion">
-            <summary class="social-accordion-summary">
-              <span>Connect Social Links (Optional)</span>
-              <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="social-inputs-grid">
-              <div class="form-group mb-0">
-                <label for="github" class="form-sublabel">GitHub Username</label>
-                <div class="prefix-input-wrap">
-                  <span class="input-prefix">github.com/</span>
-                  <input type="text" id="github" name="github" class="form-input" placeholder="username" />
+                <div class="field-wrap">
+                  <div class="field-label-line">
+                    <label for="title" class="field-label">Professional Role</label>
+                  </div>
+                  <input type="text" id="title" name="title" class="studio-input" placeholder="Design Technologist &amp; Architect" maxlength="60" />
+                  <div id="titleError" class="field-error-msg" role="alert"></div>
                 </div>
               </div>
-              <div class="form-group mb-0">
-                <label for="twitter" class="form-sublabel">X / Twitter Handle</label>
-                <div class="prefix-input-wrap">
-                  <span class="input-prefix">x.com/</span>
-                  <input type="text" id="twitter" name="twitter" class="form-input" placeholder="handle" />
+
+              <div class="inputs-grid-2 mt-3">
+                <div class="field-wrap">
+                  <div class="field-label-line">
+                    <label for="location" class="field-label">Location</label>
+                  </div>
+                  <input type="text" id="location" name="location" class="studio-input" placeholder="Stockholm, Sweden" maxlength="45" />
+                </div>
+
+                <div class="field-wrap">
+                  <div class="field-label-line">
+                    <label for="status" class="field-label">Status Badge</label>
+                  </div>
+                  <select id="status" name="status" class="studio-select">
+                    <option value="Available for hire">🟢 Available for hire</option>
+                    <option value="Building in stealth">🚀 Building in stealth</option>
+                    <option value="Open to advising">☕ Open to advising</option>
+                    <option value="Focused on Q4 ship">⚡ Shipping v2.0</option>
+                    <option value="Exploring new ideas">✨ Exploring new ideas</option>
+                  </select>
                 </div>
               </div>
-              <div class="form-group mb-0">
-                <label for="website" class="form-sublabel">Portfolio / Website</label>
-                <input type="url" id="website" name="website" class="form-input" placeholder="https://example.com" />
+            </div>
+
+            <!-- SECTION 2: Bio & Narrative -->
+            <div class="form-block">
+              <div class="block-title">
+                <span class="block-num">02</span>
+                <h3>Narrative &amp; Focus</h3>
+                <span id="bioCharCount" class="char-tally">0/350</span>
+              </div>
+
+              <div class="field-wrap">
+                <textarea id="bio" name="bio" class="studio-textarea" rows="3" placeholder="Crafting tactile interfaces and design system infrastructure. Focused on typography-first web software and accessibility." required minlength="5" maxlength="350"></textarea>
+                <div id="bioError" class="field-error-msg" role="alert"></div>
               </div>
             </div>
-          </details>
 
-          <!-- Form Actions -->
-          <div class="form-actions">
-            <button type="submit" id="submitBtn" class="btn-primary">
-              <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-              <span class="btn-text">Generate Profile Card (POST /api/profile)</span>
-            </button>
+            <!-- SECTION 3: Visual Avatar & Gallery -->
+            <div class="form-block">
+              <div class="block-title">
+                <span class="block-num">03</span>
+                <h3>Visual Portrait</h3>
+              </div>
 
-            <button type="button" id="testInvalidBtn" class="btn-outline" title="Trigger a deliberately malformed POST request to see backend 400 Bad Request handling">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              <span>Test Invalid POST (400 Error)</span>
-            </button>
-          </div>
-        </form>
+              <div class="field-wrap">
+                <div class="avatar-input-row">
+                  <div id="imgPreviewContainer" class="avatar-preview-disc" aria-hidden="true">
+                    <span class="avatar-initials-txt">ER</span>
+                  </div>
+                  <div class="avatar-url-field">
+                    <input type="url" id="imageUrl" name="imageUrl" class="studio-input" placeholder="Paste image address (https://...)" />
+                    <span class="input-hint">Leave blank to auto-generate custom geometric initials</span>
+                  </div>
+                </div>
+                <div id="imageUrlError" class="field-error-msg" role="alert"></div>
+              </div>
+
+              <!-- Quick Curated Avatar Picker -->
+              <div class="curated-avatars-shelf">
+                <span class="shelf-label">Curated Gallery:</span>
+                <div class="avatar-thumbnails-list">
+                  <button type="button" class="avatar-pick-btn" data-url="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" title="Elena (Warm Lighting)"></button>
+                  <button type="button" class="avatar-pick-btn" data-url="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" title="Marcus (Minimalist)"></button>
+                  <button type="button" class="avatar-pick-btn" data-url="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" title="Amara (Studio Portrait)"></button>
+                  <button type="button" class="avatar-pick-btn" data-url="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80" title="Julian (Editorial B&W)"></button>
+                  <button type="button" class="avatar-pick-btn" data-url="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&q=80" title="Kaya (Outdoor Natural)"></button>
+                  <button type="button" class="avatar-pick-btn clear-avatar-btn" data-url="" title="Use Initials Avatar">Initials</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 4: Skills & Specialties -->
+            <div class="form-block">
+              <div class="block-title">
+                <span class="block-num">04</span>
+                <h3>Specialties &amp; Stack</h3>
+              </div>
+
+              <div class="field-wrap">
+                <div class="tags-input-container" id="tagsContainer">
+                  <div class="tags-list" id="tagsList">
+                    <!-- Dynamic tag pills inserted here -->
+                  </div>
+                  <input type="text" id="skillInput" class="tag-inline-input" placeholder="Type skill + Enter (e.g. TypeScript)" maxlength="24" />
+                </div>
+                <input type="hidden" id="skillsHidden" name="skills" value="" />
+                
+                <div class="suggested-tags-row">
+                  <span class="suggest-label">Suggestions:</span>
+                  <button type="button" class="suggest-chip" data-tag="Design Systems">+ Design Systems</button>
+                  <button type="button" class="suggest-chip" data-tag="TypeScript">+ TypeScript</button>
+                  <button type="button" class="suggest-chip" data-tag="Next.js">+ Next.js</button>
+                  <button type="button" class="suggest-chip" data-tag="WebGL">+ WebGL</button>
+                  <button type="button" class="suggest-chip" data-tag="API Architecture">+ API Architecture</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 5: Social Connections -->
+            <div class="form-block">
+              <div class="block-title">
+                <span class="block-num">05</span>
+                <h3>Network &amp; Profiles</h3>
+              </div>
+
+              <div class="social-fields-grid">
+                <div class="social-input-row">
+                  <span class="social-prefix-badge">github.com/</span>
+                  <input type="text" id="github" name="github" class="studio-input" placeholder="username" />
+                </div>
+                <div class="social-input-row">
+                  <span class="social-prefix-badge">x.com/</span>
+                  <input type="text" id="twitter" name="twitter" class="studio-input" placeholder="handle" />
+                </div>
+                <div class="social-input-row">
+                  <span class="social-prefix-badge">linkedin.com/in/</span>
+                  <input type="text" id="linkedin" name="linkedin" class="studio-input" placeholder="profile" />
+                </div>
+                <div class="social-input-row">
+                  <span class="social-prefix-badge">website:</span>
+                  <input type="url" id="website" name="website" class="studio-input" placeholder="https://domain.design" />
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 6: Card Theme & Atmosphere -->
+            <div class="form-block">
+              <div class="block-title">
+                <span class="block-num">06</span>
+                <h3>Card Aesthetic</h3>
+              </div>
+
+              <div class="themes-selector-matrix" role="radiogroup" aria-label="Card Theme Palette">
+                <label class="theme-option-card">
+                  <input type="radio" name="theme" value="obsidian" checked />
+                  <span class="theme-card-body theme-preview-obsidian">
+                    <span class="theme-dot" style="background:#22c55e;"></span>
+                    <span class="theme-meta">
+                      <strong class="theme-title">Obsidian</strong>
+                      <span class="theme-desc">Graphite, emerald pulse &amp; metallic rim</span>
+                    </span>
+                  </span>
+                </label>
+
+                <label class="theme-option-card">
+                  <input type="radio" name="theme" value="editorial" />
+                  <span class="theme-card-body theme-preview-editorial">
+                    <span class="theme-dot" style="background:#1c1917;"></span>
+                    <span class="theme-meta">
+                      <strong class="theme-title">Editorial</strong>
+                      <span class="theme-desc">Warm archival paper, serif elegance</span>
+                    </span>
+                  </span>
+                </label>
+
+                <label class="theme-option-card">
+                  <input type="radio" name="theme" value="aurora" />
+                  <span class="theme-card-body theme-preview-aurora">
+                    <span class="theme-dot" style="background:#ec4899;"></span>
+                    <span class="theme-meta">
+                      <strong class="theme-title">Aurora</strong>
+                      <span class="theme-desc">Sunset mesh &amp; frosted glass overlay</span>
+                    </span>
+                  </span>
+                </label>
+
+                <label class="theme-option-card">
+                  <input type="radio" name="theme" value="terminal" />
+                  <span class="theme-card-body theme-preview-terminal">
+                    <span class="theme-dot" style="background:#10b981;"></span>
+                    <span class="theme-meta">
+                      <strong class="theme-title">Terminal</strong>
+                      <span class="theme-desc">Phosphor CRT green &amp; monospace grid</span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="submit-actions-bar">
+              <button type="submit" id="submitBtn" class="btn-generate">
+                <span class="btn-spinner" aria-hidden="true"></span>
+                <span class="btn-label-text">Generate Card (POST /api/profile)</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+
+              <button type="button" id="testInvalidBtn" class="btn-test-error" title="Send invalid body to test backend 400 Bad Request handling">
+                <span>Test Invalid POST (400)</span>
+              </button>
+            </div>
+          </form>
+
+        </div>
       </section>
 
-      <!-- RIGHT COLUMN: Output Preview & Network Inspector -->
-      <section class="studio-card output-panel" aria-labelledby="outputHeading">
-        <div class="panel-header tabbed-header">
-          <div>
-            <span class="panel-eyebrow">Real-Time Output</span>
-            <h2 id="outputHeading" class="panel-title">Generated Profile &amp; Telemetry</h2>
+      <!-- RIGHT COLUMN: Interactive Stage & Telemetry -->
+      <section class="stage-column" aria-label="Interactive Card Stage">
+        
+        <div class="stage-toolbar">
+          <div class="stage-views-nav" role="tablist">
+            <button type="button" class="stage-tab-btn active" data-target="stageCardView" role="tab" aria-selected="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2.5"/><path d="M15 8h2"/><path d="M15 12h2"/><path d="M7 16h10"/></svg>
+              <span>Card Showcase</span>
+            </button>
+            <button type="button" class="stage-tab-btn" data-target="stageTelemetryView" role="tab" aria-selected="false">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span>HTTP Traffic Monitor</span>
+            </button>
           </div>
 
-          <!-- Inspector Tabs -->
-          <div class="inspector-tabs-nav" role="tablist" aria-label="Output Views">
-            <button type="button" class="inspector-tab-btn active" data-target="tabCardPreview" role="tab" aria-selected="true">
-              Profile Card
+          <div class="stage-quick-actions">
+            <button type="button" id="downloadCardPngBtn" class="stage-action-btn" title="Export card as high-res PNG image">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download PNG</span>
             </button>
-            <button type="button" class="inspector-tab-btn" data-target="tabNetworkInspector" role="tab" aria-selected="false">
-              HTTP Inspector
+            <button type="button" id="copyJsonBtn" class="stage-action-btn" title="Copy returned JSON payload">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Copy JSON</span>
             </button>
           </div>
         </div>
 
-        <!-- TAB 1: Profile Card Preview Canvas -->
-        <div id="tabCardPreview" class="inspector-tab-pane active" role="tabpanel" aria-live="polite">
+        <!-- STAGE 1: Profile Card Stage with 3D Tilt -->
+        <div id="stageCardView" class="stage-pane active" role="tabpanel">
           
-          <!-- Empty State -->
-          <div id="emptyCardState" class="empty-preview-state" style="display: none;">
-            <div class="empty-icon-box">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="3" y="4" width="18" height="16" rx="3"/>
-                <circle cx="12" cy="10" r="3"/>
-                <path d="M7 20v-1a5 5 0 0 1 10 0v1"/>
-              </svg>
+          <div class="perspective-stage" id="perspectiveStage">
+            
+            <!-- Empty state fallback (hidden once populated) -->
+            <div id="emptyCardState" class="empty-stage-state" style="display:none;">
+              <p>Configure parameters on the left to render your profile card.</p>
             </div>
-            <h3>No Profile Card Generated Yet</h3>
-            <p>Fill out the form on the left or select a Quick Preset to send a POST request to the backend.</p>
+
+            <!-- Dynamic Card Render Mount -->
+            <div id="cardContainer" class="card-render-wrapper">
+              <!-- Rendered dynamically by app.js -->
+            </div>
+
           </div>
 
-          <!-- Generated Card Mount Container -->
-          <div id="cardContainer" class="card-display-container">
-            <!-- Dynamically populated by app.js -->
+          <!-- Interaction Hint -->
+          <div class="stage-footer-note">
+            <span class="mouse-icon">⤹</span>
+            <span>Hover and move cursor over card to test interactive 3D perspective physics.</span>
           </div>
         </div>
 
-        <!-- TAB 2: HTTP POST Network Inspector -->
-        <div id="tabNetworkInspector" class="inspector-tab-pane" role="tabpanel">
-          <div class="telemetry-box">
-            <div class="telemetry-header">
-              <div class="endpoint-badge">
-                <span class="badge-post" id="inspectorReqMethod">POST</span>
-                <code id="inspectorReqUrl">/api/profile</code>
+        <!-- STAGE 2: Live HTTP Network Inspector -->
+        <div id="stageTelemetryView" class="stage-pane" role="tabpanel">
+          <div class="traffic-monitor-panel">
+            
+            <div class="monitor-header">
+              <div class="endpoint-chip">
+                <span class="http-verb" id="inspectorReqMethod">POST</span>
+                <code class="http-path" id="inspectorReqUrl">/api/profile</code>
               </div>
-              <div class="telemetry-meta">
-                <span id="inspectorResStatus" class="status-pill status-ok">200 OK</span>
-                <span id="inspectorResTime" class="telemetry-pill">42 ms</span>
-                <span id="inspectorResEngine" class="telemetry-pill engine-badge">Engine</span>
+              <div class="monitor-metrics">
+                <span id="inspectorResStatus" class="metric-pill status-pill-success">200 OK</span>
+                <span id="inspectorResTime" class="metric-pill">~24 ms</span>
+                <span id="inspectorResEngine" class="metric-pill metric-engine">Node.js Express</span>
               </div>
             </div>
 
-            <!-- Request Body Block -->
-            <div class="code-block-section">
-              <div class="code-block-header">
-                <span>Request Payload (application/json)</span>
-                <span class="subtext">Client -> Backend</span>
+            <div class="code-lens-group">
+              <div class="code-lens">
+                <div class="lens-header">
+                  <span>POST Request Payload (JSON)</span>
+                  <span class="lens-sub">Client ➔ Server</span>
+                </div>
+                <pre class="lens-pre"><code id="inspectorReqBody">// Awaiting POST request...</code></pre>
               </div>
-              <pre class="code-pre"><code id="inspectorReqBody">// Awaiting POST request...</code></pre>
+
+              <div class="code-lens">
+                <div class="lens-header">
+                  <span>Backend Response Payload (JSON)</span>
+                  <span class="lens-sub">Server ➔ Client</span>
+                </div>
+                <pre class="lens-pre"><code id="inspectorResBody">// Awaiting response...</code></pre>
+              </div>
+
+              <div class="code-lens">
+                <div class="lens-header">
+                  <span>Terminal cURL Command</span>
+                  <button type="button" class="copy-code-btn" id="copyCurlBtn">Copy cURL</button>
+                </div>
+                <pre class="lens-pre curl-code"><code id="curlCommandText">curl -X POST http://localhost:3000/api/profile ...</code></pre>
+              </div>
             </div>
 
-            <!-- Response Body Block -->
-            <div class="code-block-section">
-              <div class="code-block-header">
-                <span>Response Payload (JSON)</span>
-                <span class="subtext">Backend -> Client</span>
-              </div>
-              <pre class="code-pre"><code id="inspectorResBody">// Awaiting response...</code></pre>
-            </div>
-
-            <!-- cURL Equivalent -->
-            <div class="code-block-section">
-              <div class="code-block-header">
-                <span>Test via Terminal (cURL)</span>
-                <button type="button" class="copy-small-btn" id="copyCurlBtn">Copy cURL</button>
-              </div>
-              <pre class="code-pre curl-pre"><code id="curlCommandText">curl -X POST http://localhost:3000/api/profile ...</code></pre>
-            </div>
           </div>
         </div>
 
@@ -342,31 +417,21 @@
     </div>
   </main>
 
-  <!-- Application Footer -->
-  <footer class="app-footer">
-    <div class="footer-container">
-      <p>User Profile Card Generator • Full-Stack Node.js &amp; GitHub Pages Ready</p>
-      <div class="footer-links">
-        <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages Docs</a>
-        <span>•</span>
-        <a href="https://expressjs.com/" target="_blank" rel="noopener noreferrer">Express API</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Toast Notification Mount -->
+  <!-- Notification Toast Shelf -->
   <div id="toastContainer" class="toast-shelf" aria-live="assertive"></div>
 
-  <!-- Scripts -->
+  <!-- Hidden canvas for client-side card PNG generation -->
+  <canvas id="exportCanvas" style="display:none;"></canvas>
+
+  <!-- Core Scripts -->
   <script src="./js/processor.js"></script>
   <script src="./js/api.js"></script>
   <script src="./js/app.js"></script>
   <script>
-    // Register Service Worker for GitHub Pages offline/static support
     if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js').catch((err) => {
-          console.debug('ServiceWorker notice:', err.message);
+          console.debug('ServiceWorker:', err.message);
         });
       });
     }

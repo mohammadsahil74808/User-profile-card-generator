@@ -15,15 +15,110 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  const ALLOWED_THEMES = ['slate', 'emerald', 'indigo', 'amber', 'rose', 'cyan'];
+  const ALLOWED_THEMES = ['obsidian', 'editorial', 'aurora', 'terminal', 'slate', 'emerald', 'indigo', 'amber', 'rose', 'cyan'];
 
-  const THEME_GRADIENTS = {
-    slate: { from: '#334155', to: '#0f172a', accent: '#38bdf8' },
-    emerald: { from: '#065f46', to: '#022c22', accent: '#34d399' },
-    indigo: { from: '#3730a3', to: '#1e1b4b', accent: '#818cf8' },
-    amber: { from: '#92400e', to: '#451a03', accent: '#fbbf24' },
-    rose: { from: '#9f1239', to: '#4c0519', accent: '#fb7185' },
-    cyan: { from: '#155e75', to: '#083344', accent: '#22d3ee' }
+  const THEME_PALETTES = {
+    obsidian: {
+      bg: '#111318',
+      surface: '#181b22',
+      border: '#282d38',
+      accent: '#22c55e',
+      text: '#f3f4f6',
+      subtext: '#9ca3af',
+      gradientFrom: '#1f242e',
+      gradientTo: '#111318'
+    },
+    editorial: {
+      bg: '#fbfaf8',
+      surface: '#ffffff',
+      border: '#e7e5e0',
+      accent: '#0f172a',
+      text: '#1c1917',
+      subtext: '#78716c',
+      gradientFrom: '#e7e5e0',
+      gradientTo: '#f5f4ef'
+    },
+    aurora: {
+      bg: '#0c0f1d',
+      surface: '#14182e',
+      border: '#282f54',
+      accent: '#ec4899',
+      text: '#f8fafc',
+      subtext: '#94a3b8',
+      gradientFrom: '#f43f5e',
+      gradientTo: '#8b5cf6'
+    },
+    terminal: {
+      bg: '#0a0d0a',
+      surface: '#111711',
+      border: '#1f2e1f',
+      accent: '#10b981',
+      text: '#d1fae5',
+      subtext: '#6ee7b7',
+      gradientFrom: '#064e3b',
+      gradientTo: '#022c22'
+    },
+    // Backwards compatibility for previous themes
+    slate: {
+      bg: '#0f172a',
+      surface: '#1e293b',
+      border: '#334155',
+      accent: '#38bdf8',
+      text: '#f8fafc',
+      subtext: '#94a3b8',
+      gradientFrom: '#334155',
+      gradientTo: '#0f172a'
+    },
+    emerald: {
+      bg: '#064e3b',
+      surface: '#065f46',
+      border: '#047857',
+      accent: '#34d399',
+      text: '#ecfdf5',
+      subtext: '#a7f3d0',
+      gradientFrom: '#065f46',
+      gradientTo: '#022c22'
+    },
+    indigo: {
+      bg: '#1e1b4b',
+      surface: '#312e81',
+      border: '#4338ca',
+      accent: '#818cf8',
+      text: '#eef2ff',
+      subtext: '#c7d2fe',
+      gradientFrom: '#3730a3',
+      gradientTo: '#1e1b4b'
+    },
+    amber: {
+      bg: '#451a03',
+      surface: '#78350f',
+      border: '#92400e',
+      accent: '#fbbf24',
+      text: '#fef3c7',
+      subtext: '#fde68a',
+      gradientFrom: '#92400e',
+      gradientTo: '#451a03'
+    },
+    rose: {
+      bg: '#4c0519',
+      surface: '#881337',
+      border: '#9f1239',
+      accent: '#fb7185',
+      text: '#ffe4e6',
+      subtext: '#fecdd3',
+      gradientFrom: '#9f1239',
+      gradientTo: '#4c0519'
+    },
+    cyan: {
+      bg: '#083344',
+      surface: '#155e75',
+      border: '#0e7490',
+      accent: '#22d3ee',
+      text: '#ecfeff',
+      subtext: '#a5f3fc',
+      gradientFrom: '#155e75',
+      gradientTo: '#083344'
+    }
   };
 
   /**
@@ -53,26 +148,26 @@
   }
 
   /**
-   * Generate an SVG Data URI avatar based on initials and theme
+   * Generate a handcrafted SVG Data URI avatar based on initials and theme
    */
-  function generateAvatarSvg(name, theme = 'slate') {
+  function generateAvatarSvg(name, theme = 'obsidian') {
     const initials = escapeHtml(generateInitials(name));
-    const themeColors = THEME_GRADIENTS[theme] || THEME_GRADIENTS.slate;
+    const palette = THEME_PALETTES[theme] || THEME_PALETTES.obsidian;
 
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
       <defs>
-        <linearGradient id="g_${theme}" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="${themeColors.from}" />
-          <stop offset="100%" stop-color="${themeColors.to}" />
+        <linearGradient id="avatar_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="${palette.gradientFrom}" />
+          <stop offset="100%" stop-color="${palette.gradientTo}" />
         </linearGradient>
-        <radialGradient id="ring_${theme}" cx="50%" cy="50%" r="50%">
-          <stop offset="70%" stop-color="transparent" />
-          <stop offset="100%" stop-color="${themeColors.accent}" stop-opacity="0.3" />
+        <radialGradient id="avatar_ring" cx="50%" cy="50%" r="50%">
+          <stop offset="65%" stop-color="transparent" />
+          <stop offset="100%" stop-color="${palette.accent}" stop-opacity="0.25" />
         </radialGradient>
       </defs>
-      <rect width="160" height="160" rx="80" fill="url(#g_${theme})" />
-      <circle cx="80" cy="80" r="76" fill="url(#ring_${theme})" stroke="${themeColors.accent}" stroke-width="2" stroke-opacity="0.4" />
-      <text x="50%" y="54%" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="54" fill="#ffffff" text-anchor="middle" dominant-baseline="middle" letter-spacing="1.5">
+      <rect width="200" height="200" rx="100" fill="url(#avatar_grad)" />
+      <circle cx="100" cy="100" r="95" fill="url(#avatar_ring)" stroke="${palette.accent}" stroke-width="2" stroke-opacity="0.4" />
+      <text x="50%" y="54%" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="64" fill="#ffffff" text-anchor="middle" dominant-baseline="middle" letter-spacing="2">
         ${initials}
       </text>
     </svg>`;
@@ -113,7 +208,7 @@
   }
 
   /**
-   * Format date into readable standard (e.g., Nov 12, 2026)
+   * Format date into readable standard (e.g., Nov 13, 2026)
    */
   function formatReadableDate(date) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -164,8 +259,8 @@
     }
 
     // 4. Validate Theme
-    const rawTheme = typeof rawData.theme === 'string' ? rawData.theme.toLowerCase().trim() : 'slate';
-    const theme = ALLOWED_THEMES.includes(rawTheme) ? rawTheme : 'slate';
+    const rawTheme = typeof rawData.theme === 'string' ? rawData.theme.toLowerCase().trim() : 'obsidian';
+    const theme = ALLOWED_THEMES.includes(rawTheme) ? rawTheme : 'obsidian';
 
     // Return early if validation fails
     if (Object.keys(errors).length > 0) {
@@ -180,25 +275,44 @@
 
     // 5. Title / Headline (optional, with fallback)
     const rawTitle = typeof rawData.title === 'string' ? rawData.title.trim() : '';
-    const title = rawTitle ? escapeHtml(rawTitle.slice(0, 60)) : 'Member & Contributor';
+    const title = rawTitle ? escapeHtml(rawTitle.slice(0, 60)) : 'Product Designer & Builder';
 
-    // 6. Generate handle from name
+    // 6. Location & Status
+    const rawLocation = typeof rawData.location === 'string' ? rawData.location.trim() : '';
+    const location = rawLocation ? escapeHtml(rawLocation.slice(0, 45)) : 'Remote / Global';
+
+    const rawStatus = typeof rawData.status === 'string' ? rawData.status.trim() : '';
+    const statusText = rawStatus ? escapeHtml(rawStatus.slice(0, 35)) : 'Available for hire';
+
+    // 7. Skills / Tags
+    let skillsList = [];
+    if (Array.isArray(rawData.skills)) {
+      skillsList = rawData.skills;
+    } else if (typeof rawData.skills === 'string') {
+      skillsList = rawData.skills.split(',').map(s => s.trim()).filter(Boolean);
+    }
+    // Limit to max 6 tags and escape
+    const formattedSkills = skillsList.slice(0, 6).map(s => escapeHtml(s.slice(0, 24)));
+
+    // 8. Generate handle from name
     const cleanSlug = rawName
       .toLowerCase()
       .replace(/[^a-z0-9]/g, '')
       .slice(0, 20);
     const handle = `@${cleanSlug || 'user'}`;
 
-    // 7. Sanitized bio & stats
+    // 9. Sanitized bio & stats
     const sanitizedBio = escapeHtml(rawBio);
     const words = rawBio.split(/\s+/).filter(Boolean);
     const wordCount = words.length;
     const charCount = rawBio.length;
     const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 180));
 
-    // 8. Social Links
+    // 10. Social Links
     const rawGithub = sanitizeHandle(rawData.github);
     const rawTwitter = sanitizeHandle(rawData.twitter);
+    const rawLinkedin = sanitizeHandle(rawData.linkedin);
+
     let rawWebsite = typeof rawData.website === 'string' ? rawData.website.trim() : '';
     if (rawWebsite && !rawWebsite.startsWith('http://') && !rawWebsite.startsWith('https://')) {
       rawWebsite = 'https://' + rawWebsite;
@@ -210,14 +324,16 @@
       githubUsername: rawGithub || null,
       twitter: rawTwitter ? `https://x.com/${rawTwitter}` : null,
       twitterUsername: rawTwitter || null,
+      linkedin: rawLinkedin ? `https://linkedin.com/in/${rawLinkedin}` : null,
+      linkedinUsername: rawLinkedin || null,
       website: websiteValid ? rawWebsite : null
     };
 
-    // 9. Generate SVG Fallback Avatar
+    // 11. Generate SVG Fallback Avatar
     const fallbackAvatar = generateAvatarSvg(rawName, theme);
     const primaryAvatar = hasCustomImage ? validatedImageUrl : fallbackAvatar;
 
-    // 10. Creation metadata
+    // 12. Creation metadata & Unique ID
     const now = new Date();
     const cardId = generateCardId();
 
@@ -228,6 +344,9 @@
       title: title,
       bio: sanitizedBio,
       rawBio: rawBio,
+      location: location,
+      statusText: statusText,
+      skills: formattedSkills,
       avatarUrl: primaryAvatar,
       fallbackAvatarUrl: fallbackAvatar,
       hasCustomAvatar: hasCustomImage,
@@ -241,7 +360,7 @@
       metadata: {
         createdAt: now.toISOString(),
         formattedDate: formatReadableDate(now),
-        badge: 'Verified Card',
+        badge: 'Verified Member',
         processedBy: processedBy
       }
     };
@@ -260,6 +379,7 @@
     generateInitials: generateInitials,
     escapeHtml: escapeHtml,
     isValidUrl: isValidUrl,
-    ALLOWED_THEMES: ALLOWED_THEMES
+    ALLOWED_THEMES: ALLOWED_THEMES,
+    THEME_PALETTES: THEME_PALETTES
   };
 });
